@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Ficha Médica: {{ paciente.nombre }}</h4>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Especie:</strong> {{ paciente.especie.nombre }}</li>
+            <li class="list-group-item"><strong>Tutor responsable:</strong> {{ paciente.tutor }}</li>
+            <li class="list-group-item"><strong>Peso registrado:</strong> {{ paciente.peso_kg }} kg</li>
+            <li class="list-group-item"><strong>Fecha de ingreso:</strong> {{ paciente.fecha_ingreso }}</li>
+            <li class="list-group-item">
+                <strong>Estado de vacunación:</strong>
+                {% if paciente.vacunado %}Sí, al día{% else %}Pendiente{% endif %}
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <a href="{% url 'paciente_list' %}" class="btn btn-secondary">Volver al listado</a>
+        <div>
+            <a href="{% url 'paciente_update' paciente.pk %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'paciente_delete' paciente.pk %}" class="btn btn-danger">Eliminar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
