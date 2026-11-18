@@ -14,3 +14,11 @@ body {
 .card:hover {
     transform: translateY(-3px);
 }
+
+.card {
+    border-top: 3px solid #198754;
+}
+
+.btn {
+    border-radius: 6px;
+}
