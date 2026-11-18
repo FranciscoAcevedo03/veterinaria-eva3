@@ -1,4 +1,6 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Paciente
 from .forms import PacienteForm
@@ -18,21 +20,24 @@ class PacienteDetailView(DetailView):
     context_object_name = 'paciente'
 
 
-class PacienteCreateView(CreateView):
+class PacienteCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Paciente
     form_class = PacienteForm
     template_name = 'clinica/paciente_form.html'
     success_url = reverse_lazy('paciente_list')
+    success_message = "Paciente registrado exitosamente."
 
 
-class PacienteUpdateView(UpdateView):
+class PacienteUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Paciente
     form_class = PacienteForm
     template_name = 'clinica/paciente_form.html'
     success_url = reverse_lazy('paciente_list')
+    success_message = "Datos del paciente actualizados correctamente."
 
 
-class PacienteDeleteView(DeleteView):
+class PacienteDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Paciente
     template_name = 'clinica/paciente_confirm_delete.html'
     success_url = reverse_lazy('paciente_list')
+    success_message = "Paciente eliminado del sistema."
